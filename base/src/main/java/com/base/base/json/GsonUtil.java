@@ -1,38 +1,51 @@
+/*
+ * Copyright By ZATI
+ * Copyright By 3a3c88295d37870dfd3b25056092d1a9209824b256c341f2cdc296437f671617
+ * All rights reserved.
+ *
+ * If you are not the intended user, you are hereby notified that any use, disclosure, copying, printing, forwarding or
+ * dissemination of this property is strictly prohibited. If you have got this file in error, delete it from your system.
+ */
 package com.base.base.json;
 
-/**
- * @Author wangbin
- * @Date 2021/7/13
- * @Description
- **/
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.lang.reflect.Type;
+
 public class GsonUtil {
-    public static void main(String[] args) {
-        final String RULE_JSON = "[\n" +
-                "    {\n" +
-                "        \"ruleName\": \"rule1\",\n" +
-                "        \"feeAmountLow\": \"0\",\n" +
-                "        \"feeAmountHigh\": \"10000\",\n" +
-                "        \"approvalRoleList\": [\n" +
-                "            1,2\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"ruleName\": \"rule2\",\n" +
-                "        \"feeAmountLow\": \"10001\",\n" +
-                "        \"feeAmountHigh\": \"500000\",\n" +
-                "        \"approvalRoleList\": [\n" +
-                "            3,4\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"ruleName\": \"rule3\",\n" +
-                "        \"feeAmountLow\": \"500001\",\n" +
-                "        \"feeAmountHigh\": \"\",\n" +
-                "        \"approvalRoleList\": [\n" +
-                "            5,6,7\n" +
-                "        ]\n" +
-                "    }\n" +
-                "]";
+
+    private GsonUtil(){
+
+    }
+
+    public static String toJson(Object obj) {
+        Gson gson = new Gson();
+        return gson.toJson(obj);
+    }
+
+    public static <T> T fromJson(String json, Type type) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, type);
+    }
+
+    public static <T> T convertObject(Object source, Type type,String dateFormat) {
+        Gson gson = new GsonBuilder().setDateFormat(dateFormat).create();
+        String jsonString = gson.toJson(source);
+        return gson.fromJson(jsonString, type);
+    }
+
+    public static <T> T convertObject(Object source, Type type) {
+        return convertObject(source, type,"yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static <T> T convertString(String source, Type type) {
+        return convertString(source,type,"yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static <T> T convertString(String source, Type type,String dateFormat) {
+        Gson gson = new GsonBuilder().setDateFormat(dateFormat).create();
+        return gson.fromJson(source, type);
     }
 
 }

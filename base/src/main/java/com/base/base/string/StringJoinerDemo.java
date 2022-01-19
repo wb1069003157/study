@@ -20,5 +20,6 @@ public class StringJoinerDemo {
         a.merge(b);
 
         System.out.println(a);
+
     }
 }
