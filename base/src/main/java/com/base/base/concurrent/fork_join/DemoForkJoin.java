@@ -16,7 +16,9 @@ public class DemoForkJoin {
     public static void main(String[] args) {
         // 创建分治任务线程池
         ForkJoinPool forkJoinPool = new ForkJoinPool(8);
+        // 创建总任务
         Fibonacci fibonacci = new Fibonacci(30);
+        // 启动任务
         Integer result = forkJoinPool.invoke(fibonacci);
         log.info("result:{}", result);
     }
